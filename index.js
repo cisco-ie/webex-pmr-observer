@@ -1,3 +1,5 @@
+const debug = require('debug');
+
 export default class PMRObserver {
     constructor(observable, calendarService) {
         if (!observable) {
@@ -7,13 +9,15 @@ export default class PMRObserver {
         if (!calendarService) {
             throw new Error('CalendarService is expected');
         }
-
+		
+		this.debug = debug('observer-webex-pmr');
         this.observable = observable;
         this.calendar = calendarService;
     }
 
     handler = (event) => {
         if (this.shouldProcess(event)) {
+			this.debug('Correct event, processing');
             this.processEvent(event);
         }
     }
@@ -49,8 +53,8 @@ export default class PMRObserver {
             calendarId: event.calendarId,
             eventId: event.id
         }, updatedEvent)
-        .then(() => debug("Sucessfully update event."))
-        .catch(debug);
+        .then(() => this.debug(`Sucessfully update ${event.calendarId}'s event: ${event.id}`))
+        .catch(this.debug);
     }
 
     buildDescription(existingDescription, cmrSite, userId) {
