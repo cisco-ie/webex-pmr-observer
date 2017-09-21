@@ -1,13 +1,15 @@
 # webex-pmr-observer [![Build Status](https://travis-ci.org/brh55/webex-pmr-observer.svg?branch=master)](https://travis-ci.org/brh55/webex-pmr-observer)
 
-> A WebEx observer to plug into Google Calendar Listener
+> An auris observer that appends a WebEx PMR url to the description of a Google calendar event
+
+This is used in conjunction with [`Auris`](https://github.com/cisco-ie/auris).
 
 ### Observer Details
 **Default Condition:** `event.location` contains `/@webex/i` <br>
 **Outcome:** <br>
 The calendar event details is appended a WebEx PMR url with the calendar owner's Google username as the meeting room.
 
-`e.g. https://cisco.webex.com/meet/janesmith1`
+`e.g. https://cisco.webex.com/meet/jsmith1`
 
 ## Install
 
