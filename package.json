@@ -1,12 +1,12 @@
 {
   "name": "webex-pmr-observer",
-  "version": "0.0.0",
-  "description": "A WebEx observer for Google Calendar Listener",
+  "version": "0.1.0",
+  "description": "A observer that appends a Cisco WebEx PMR urls to calendar event details",
   "license": "MIT",
   "repository": "brh55/webex-pmr-observer",
   "author": {
     "name": "Brandon Him",
-    "email": "brh55@drexel.edu",
+    "email": "brandonhim@live.com",
     "url": "github.com/cisco-ie/webex-pmr-observer"
   },
   "engines": {
@@ -19,7 +19,10 @@
     "index.js"
   ],
   "keywords": [
-    ""
+    "observer",
+    "google calendar listener",
+    "webex",
+    "google cal and webex",
   ],
   "dependencies": {},
   "devDependencies": {
