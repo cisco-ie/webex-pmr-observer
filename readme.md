@@ -1,8 +1,8 @@
 # webex-pmr-observer [![Build Status](https://travis-ci.org/brh55/webex-pmr-observer.svg?branch=master)](https://travis-ci.org/brh55/webex-pmr-observer)
 
-> An auris observer that appends a WebEx PMR url to the description of a Google calendar event
+> An observer that appends a WebEx PMR url to the description of a Google calendar event
 
-This is used in conjunction with [`Auris`](https://github.com/cisco-ie/auris).
+ `webex-pmr-observer` is used in conjunction with [`Stenella`](https://github.com/cisco-ie/stenella).
 
 ### Observer Details
 **Default Condition:** `event.location` contains `/@webex/i` <br>
