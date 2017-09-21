@@ -1,7 +1,13 @@
 # webex-pmr-observer [![Build Status](https://travis-ci.org/brh55/webex-pmr-observer.svg?branch=master)](https://travis-ci.org/brh55/webex-pmr-observer)
 
-> A WebEx observer for Google Calendar Listener
+> A WebEx observer to plug into Google Calendar Listener
 
+### Observer Details
+**Condition:** `event.summary` contains `/@webex/i` <br>
+**Outcome:** <br>
+The calendar event details is appended a WebEx PMR url with the calendar owner's Google username as the meeting room.
+
+`e.g. https://cisco.webex.com/meet/janesmith1`
 
 ## Install
 
@@ -9,36 +15,45 @@
 $ npm install --save webex-pmr-observer
 ```
 
-
 ## Usage
+Within an observer file located in `/observer`:
 
 ```js
-const webexPmrObserver = require('webex-pmr-observer');
+const calendar = require('../controllers/eventController').observable;
+const AdministerCalendars = require('../services/AdministerCalendars');
+const PMRObserver = require('webex-pmr-observer');
 
-webexPmrObserver('unicorns');
-//=> 'unicorns & rainbows'
+// Construct a new observer instance
+// NOTE: You can pass in additional options in the third parameter
+const PMRInstance = new PMRObserver(calendar, AdministerCalendars);
+// Initiate the instance to begin subscribing
+PMRInstance.init();
 ```
-
 
 ## API
 
-### webexPmrObserver(input, [options])
+### new Observer(observable, calendarService, opts)
 
-#### input
+#### Observable
 
-Type: `string`
+Type: `EventEmitter`
 
-Lorem ipsum.
+A `rx.js` Observable that emits google Calendar events.
+
+
+#### calendarService
+
+Type: `Object`
+
+The calendarService provided by `google-calendar-listener` to perform update operations.
 
 #### options
 
-##### foo
+##### cmrDomain
+Type: `string`<br>
+Default: `cisco`
 
-Type: `boolean`<br>
-Default: `false`
-
-Lorem ipsum.
-
+The CMR (Collaboration Meeting Room) domain that is prefix to the webex url: `https://<cmrDomain>/webex.com/meet/user`
 
 ## License
 
