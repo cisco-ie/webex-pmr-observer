@@ -3,7 +3,7 @@
 > A WebEx observer to plug into Google Calendar Listener
 
 ### Observer Details
-**Condition:** `event.summary` contains `/@webex/i` <br>
+**Default Condition:** `event.location` contains `/@webex/i` <br>
 **Outcome:** <br>
 The calendar event details is appended a WebEx PMR url with the calendar owner's Google username as the meeting room.
 
@@ -55,6 +55,11 @@ Default: `cisco`
 
 The CMR (Collaboration Meeting Room) domain that is prefix to the webex url: `https://<cmrDomain>/webex.com/meet/user`
 
-## License
+##### field
+Type: `string` *(summary, location, description)* <br>
+Default: `location`
 
+The field to look up in the event object to determine if observer should process or not. 
+
+## License
 MIT © [Brandon Him](https://github.com/cisco-ie/webex-pmr-observer)
