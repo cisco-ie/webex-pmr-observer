@@ -1,7 +1,8 @@
+const autoBind = require('auto-bind');
 const debug = require('debug');
 
-export default class PMRObserver {
-    constructor(observable, calendarService) {
+module.exports = class PMRObserver {
+    constructor(observable, calendarService, opts = {}) {
         if (!observable) {
             throw new Error('Observable is expected, in order to subscribe');
         }
@@ -9,31 +10,36 @@ export default class PMRObserver {
         if (!calendarService) {
             throw new Error('CalendarService is expected');
         }
-		
-		this.debug = debug('observer-webex-pmr');
-        this.observable = observable;
-        this.calendar = calendarService;
+
+        this.debug = debug('observer::webex-pmr');
+        this.calendars = observable;
+        this.calendarService = calendarService;
+        this.cmrDomain = opts.cmrDomain || 'cisco';
+        this.field = opts.field || 'summary';
+
+        autoBind(this);
     }
 
-    handler = (event) => {
+    handler (event) {
         if (this.shouldProcess(event)) {
-			this.debug('Correct event, processing');
+            this.debug('Contains @webex, processing');
             this.processEvent(event);
         }
     }
 
     shouldProcess(event) {
-        if (!event.summary) {
+        const conditionField = event[this.field];
+        if (conditionField) {
             return false;
         }
 
-        const summaryContainsWebex = event.summary.match(/@webex/i);
-        if (summaryContainsWebex) {
+        const containsWebex = conditionField.match(/@webex/i);
+        if (containsWebex) {
             return true;
         }
     }
 
-    processEvent = (event) => {
+    processEvent (event) {
         const descriptionExist = event.description;
         if (descriptionExist) {
             if (event.description.indexOf('WebEx Details') > 0) {
@@ -44,12 +50,12 @@ export default class PMRObserver {
 
         const existingDescription = (event.description) ? event.description : '';
         const updateInfo = {
-            description: this.buildDescription(existingDescription, CMR, event.userId),
+            description: this.buildDescription(existingDescription, this.cmrDomain, event.userId),
             colorId: 9
         };
 
         const updatedEvent = Object.assign({}, event, updateInfo);
-        this.calendar.updateEvent({
+        this.calendarService.updateEvent({
             calendarId: event.calendarId,
             eventId: event.id
         }, updatedEvent)
@@ -64,6 +70,7 @@ http://${cmrSite}.webex.com/meet/${userId}`;
     }
 
     init() {
-        observable.subscribe(this.handler);
+        this.calendars.subscribe(this.handler);
+        this.debug('Subscribed to Calendars');
     }
 }
