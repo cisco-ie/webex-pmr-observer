@@ -1,13 +1,15 @@
 # webex-pmr-observer [![Build Status](https://travis-ci.org/brh55/webex-pmr-observer.svg?branch=master)](https://travis-ci.org/brh55/webex-pmr-observer)
 
-> A WebEx observer to plug into Google Calendar Listener
+> An observer that appends a WebEx PMR url to the description of a Google calendar event
+
+ `webex-pmr-observer` is used in conjunction with [`Stenella`](https://github.com/cisco-ie/stenella).
 
 ### Observer Details
-**Condition:** `event.summary` contains `/@webex/i` <br>
+**Default Condition:** `event.location` contains `/@webex/i` <br>
 **Outcome:** <br>
 The calendar event details is appended a WebEx PMR url with the calendar owner's Google username as the meeting room.
 
-`e.g. https://cisco.webex.com/meet/janesmith1`
+`e.g. https://cisco.webex.com/meet/jsmith1`
 
 ## Install
 
@@ -32,7 +34,7 @@ PMRInstance.init();
 
 ## API
 
-### new Observer(observable, calendarService, opts)
+### new Observer(observable, calendarService[, opts])
 
 #### Observable
 
@@ -55,6 +57,11 @@ Default: `cisco`
 
 The CMR (Collaboration Meeting Room) domain that is prefix to the webex url: `https://<cmrDomain>/webex.com/meet/user`
 
-## License
+##### field
+Type: `string` *(summary, location, description)* <br>
+Default: `location`
 
+The field to look up in the event object to determine if observer should process or not. 
+
+## License
 MIT © [Brandon Him](https://github.com/cisco-ie/webex-pmr-observer)
