@@ -34,7 +34,7 @@ PMRInstance.init();
 
 ## API
 
-### new Observer(observable, calendarService, opts)
+### new Observer(observable, calendarService[, opts])
 
 #### Observable
 
