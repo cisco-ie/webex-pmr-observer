@@ -4,11 +4,11 @@ const debug = require('debug');
 module.exports = class PMRObserver {
 	constructor(observable, calendarService, opts = {}) {
 		if (!observable) {
-			throw new Error('Observable is expected, in order to subscribe');
+			throw new Error('An observable is expected, in order to subscribe to calendars');
 		}
 
 		if (!calendarService) {
-			throw new Error('CalendarService is expected');
+			throw new Error('A calendarService is expected');
 		}
 
 		this.debug = debug('observer::webex-pmr');

@@ -6,9 +6,12 @@ import PMRObserver from '.';
 const sinon = require('sinon');
 
 const mockEvent = require('./mocks/event.json');
+const mockUpdated = require('./mocks/eventUpdated');
 
 const mockWithSummary = Object.assign({}, mockEvent, {location: '', summary: '@webex'});
 const mockNoWebex = Object.assign({}, mockEvent, {location: '', summary: ''});
+const mockWithCancellation = Object.assign({}, mockEvent, {status: 'cancelled'});
+
 class TestEmitter extends EventEmitter {}
 const mockEmitter = new TestEmitter();
 const stubObservable = Observable.fromEvent(mockEmitter, 'CALENDAR_UPDATE').share();
@@ -85,12 +88,42 @@ test.serial('Update on relevant event', t => {
 	t.truthy(stubUpdate.calledWith({calendarId: 'brhim@apidevdemo.com', eventId: 'event-1'}, expectedEvent));
 });
 
-test.serial('Don\'t update event', t => {
+test.serial('Don\'t update event without webex field', t => {
 	const observer = new PMRObserver(stubObservable, stubService);
 	observer.init();
 	mockEmitter.emit('CALENDAR_UPDATE', mockNoWebex);
 
 	t.falsy(stubUpdate.called);
+});
+
+test.serial('Don\'t process event it is not a newly created', t => {
+	const observer = new PMRObserver(stubObservable, stubService);
+	observer.init();
+	mockEmitter.emit('CALENDAR_UPDATE', mockWithCancellation);
+
+	t.falsy(stubUpdate.called);
+});
+
+test.serial('Don\'t process event if already updated', t => {
+	const observer = new PMRObserver(stubObservable, stubService);
+	observer.init();
+	mockEmitter.emit('CALENDAR_UPDATE', mockUpdated);
+
+	t.falsy(stubUpdate.called);
+});
+
+test.serial('Throw error for not observable or stub service', t => {
+	const observerError = t.throws(() => {
+		// eslint-disable-next-line no-unused-vars
+		const test = new PMRObserver(null);
+	});
+	t.is(observerError.message, 'An observable is expected, in order to subscribe to calendars');
+
+	const serviceError = t.throws(() => {
+		// eslint-disable-next-line no-unused-vars
+		const test = new PMRObserver(stubObservable, null);
+	});
+	t.is(serviceError.message, 'A calendarService is expected');
 });
 
 test.serial('Update based on options', t => {
