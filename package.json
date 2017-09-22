@@ -29,7 +29,12 @@
   },
   "devDependencies": {
     "ava": "^0.17.0",
+    "debug": "^2.6.9",
+    "native-promise-only": "^0.8.1",
     "nyc": "^10.0.0",
+    "rxjs": "^5.4.3",
+    "sinon": "^3.3.0",
+    "sinon-as-promised": "^4.0.3",
     "xo": "^0.17.0"
   }
 }
