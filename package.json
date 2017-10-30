@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "A observer that appends a Cisco WebEx PMR urls to calendar event details",
   "license": "MIT",
-  "repository": "brh55/webex-pmr-observer",
+  "repository": "cisco-ie/webex-pmr-observer",
   "author": {
     "name": "Brandon Him",
-    "email": "brandonhim@live.com",
+    "email": "brhim@cisco.com",
     "url": "github.com/cisco-ie/webex-pmr-observer"
   },
   "engines": {
