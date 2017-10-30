@@ -64,4 +64,4 @@ Default: `location`
 The field to look up in the event object to determine if observer should process or not. 
 
 ## License
-MIT © [Brandon Him](https://github.com/cisco-ie/webex-pmr-observer)
+MIT © [Cisco Innovation Edge](https://github.com/cisco-ie/webex-pmr-observer)
