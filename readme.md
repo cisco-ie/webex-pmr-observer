@@ -21,13 +21,13 @@ $ npm install --save webex-pmr-observer
 Within an observer file located in `/observer`:
 
 ```js
-const calendar = require('../controllers/eventController').observable;
-const AdministerCalendars = require('../services/AdministerCalendars');
+const eventObservable = require('../controllers/event-controller').observable;
+const CalendarService = require('../services/calendar-service');
 const PMRObserver = require('webex-pmr-observer');
 
 // Construct a new observer instance
 // NOTE: You can pass in additional options in the third parameter
-const PMRInstance = new PMRObserver(calendar, AdministerCalendars);
+const PMRInstance = new PMRObserver(eventObservable, CalendarService);
 // Initiate the instance to begin subscribing
 PMRInstance.init();
 ```
