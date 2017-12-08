@@ -1,4 +1,4 @@
-# webex-pmr-observer [![Build Status](https://travis-ci.org/brh55/webex-pmr-observer.svg?branch=master)](https://travis-ci.org/brh55/webex-pmr-observer)
+# webex-pmr-observer [![Build Status](https://travis-ci.org/cisco-ie/webex-pmr-observer.svg?branch=master)](https://travis-ci.org/cisco-ie/webex-pmr-observer)
 
 > An observer that appends a WebEx PMR url to the description of a Google calendar event
 
